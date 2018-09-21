@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -23,14 +24,23 @@ public class Organizacao {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long idOrganizacao;
+	@Column(name="nm_cnpj")
 	private String nmCnpj;
+	@Column(name="razao_social")
 	private String razaoSocial;
+	@Column(name="nome_fantasia")
 	private String nomeFantasia;
+	@Column(name="email")
 	private String email;
+	@Column(name="descricao")
 	private String descricao;
+	@Column(name="site")
 	private String site;
+	@Column(name="facebook")
 	private String facebook;
+	@Column(name="instagram")
 	private String instagram;
+	
 	
 	public Organizacao() {
 		
@@ -126,11 +136,32 @@ public class Organizacao {
 //	 @ManyToMany(mappedBy = "ongs")
 //	    private Set<Endereco> enderecos = new HashSet<>();
 
-    @OneToMany(
-        mappedBy = "organizacao", 
-        cascade = CascadeType.ALL, 
-        orphanRemoval = true
-    )
-    private List<Local> locais = new ArrayList<>();
+//    @OneToMany(
+//        mappedBy = "organizacao", 
+//        cascade = CascadeType.ALL, 
+//        orphanRemoval = true
+//    )
+//    private List<Local> locais = new ArrayList<>();
+	
+//	@ManyToMany(cascade = CascadeType.ALL)
+//    @JoinTable(name = "local", joinColumns = @JoinColumn(name = "id_organizacao", referencedColumnName = "id_organizacao"),
+//    inverseJoinColumns = @JoinColumn(name = "id_endereco", referencedColumnName = "id_endereco"))
+//    public Set<Endereco> getEnderecos() {
+//        return enderecos;
+//    }
+//	  public void setEndereco(Set<Endereco>enderecos) {
+//	        this.enderecos = enderecos;
+//	    }
+	
+	 @OneToMany(mappedBy = "organizacao", cascade = CascadeType.ALL, orphanRemoval = true)
+	 private Set<Local>locais;
+	    public Set<Local>   getLocais() {
+	        return locais;
+	    }
+
+	    public void setLocais(Set<Local> locais) {
+	        this.locais = locais;
+	    }
+	
 		
 }

@@ -2,13 +2,13 @@ package servicoRest.repository;
 
 import java.util.Optional;
 
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.CrudRepository;
-import org.springframework.data.repository.query.Param;
+import org.springframework.data.jpa.repository.JpaRepository;
+
 
 import servicoRest.model.Organizacao;
 
-public interface OrganizacaoRepository extends CrudRepository<Organizacao, Long>{
+public interface OrganizacaoRepository extends JpaRepository<Organizacao, Long>{
+	
 	Optional<Organizacao> findById(Long id);
 	
 	Optional<Organizacao>findByEmail(String email);
@@ -18,5 +18,5 @@ public interface OrganizacaoRepository extends CrudRepository<Organizacao, Long>
 //	Iterable<Organizacao> findByIdEndereco(@Param("id_endereco") Long id_endereco);
 //	
 
-	Iterable<Organizacao> findByLocais_Id_IdEndereco(Long id_endereco);
+//	Iterable<Organizacao> findByLocais_Id_IdEndereco(Long id_endereco);
 }

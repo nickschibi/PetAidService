@@ -47,7 +47,8 @@ public class OrganizacaoController {
 	    	if(id_endereco == null) {
 	    		return organizacaoRepository.findAll();
 	    	} else {
-	    		return organizacaoRepository.findByLocais_Id_IdEndereco(Long.parseLong(id_endereco));
+	    		//return organizacaoRepository.findByLocais_Id_IdEndereco(Long.parseLong(id_endereco));
+	    		return null;
 	    	}
 	    }
 	    

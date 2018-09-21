@@ -1,86 +1,62 @@
 package servicoRest.model;
 
+import java.io.Serializable;
 import java.util.Objects;
 
+import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.MapsId;
 import javax.persistence.Table;
 
 @Entity
+@IdClass(OrganizacaoEnderecoId.class)
 @Table(name="local")
-public class Local {
-//	@Id
-//	@GeneratedValue(strategy = GenerationType.IDENTITY)
-//    private int idLocal;
+public class Local implements Serializable {
 	
-	@EmbeddedId
-	private OrganizacaoEnderecoId id;
-
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "id_organizacao")
-//    private Organizacao organizacao;
-//
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "id_endereco")
-//    private Endereco endereco;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @MapsId("idEndereco")
-    private Endereco endereco;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @MapsId("idOrganizacao")
-    private Organizacao organizacao;
-    
-        
-    public OrganizacaoEnderecoId getId() {
-		return id;
-	}
-
-	public void setId(OrganizacaoEnderecoId id) {
-		this.id = id;
-	}
-
-
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name="id_local")
+	private int idLocal;
+	@Column(name="nome_responsavel")
 	private String nomeResponsavel;
-    private String telefoneLocal;
-//    private int idOrganizacao;
-//    private int id_endereco;
+	@Column(name="telefone_local")
+	private String telefoneLocal;
 
-    public Local(int idLocal, String nomeResponsavel, String telefoneLocal, int idOrganizacao, int id_endereco) {
-        //this.idLocal = idLocal;
-        this.nomeResponsavel = nomeResponsavel;
-        this.telefoneLocal = telefoneLocal;
-        //this.idOrganizacao = idOrganizacao;
-       // this.id_endereco = id_endereco;
-    }
-
-    public Local(){
-
-    };
-
-    public Local(String nomeResponsavel, String telefoneLocal, int idOrganizacao, int id_endereco) {
-        this.nomeResponsavel = nomeResponsavel;
-        this.telefoneLocal = telefoneLocal;
-        //this.idOrganizacao = idOrganizacao;
-        //this.id_endereco = id_endereco;
-    }
-
-//    public int getIdLocal() {
-//        return idLocal;
-//    }
-//
-//    public void setIdLocal(int idLocal) {
-//        this.idLocal = idLocal;
-//    }
-
+	@Id
+	@ManyToOne(fetch = FetchType.LAZY)
+//	@JoinColumn(name="id_organizacao")
+	private Organizacao organizacao;
+//	private Long idOrganizacao;
+	public Organizacao getOrganizacao() {
+		return organizacao;
+	}
+	public void setOrganizacao(Organizacao organizacao) {
+		this.organizacao = organizacao;
+	}
+	
+	@Id
+	@ManyToOne(fetch = FetchType.LAZY)
+//	@JoinColumn(name="id_endereco")
+	private Endereco endereco;
+//	private Long idEndereco;
+	public Endereco getEndereco() {
+		return endereco;
+	}
+	public void setEndereco(Endereco endereco) {
+		this.endereco = endereco;
+	}
+	
+	
+	
     public String getNomeResponsavel() {
         return nomeResponsavel;
     }
@@ -96,6 +72,64 @@ public class Local {
     public void setTelefoneLocal(String telefoneLocal) {
         this.telefoneLocal = telefoneLocal;
     }
+    
+    
+////@Id
+////@GeneratedValue(strategy = GenerationType.IDENTITY)
+////private int idLocal;
+//
+//@EmbeddedId
+//private OrganizacaoEnderecoId id;
+//
+////@ManyToOne(fetch = FetchType.LAZY)
+////@JoinColumn(name = "id_organizacao")
+////private Organizacao organizacao;
+////
+////@ManyToOne(fetch = FetchType.LAZY)
+////@JoinColumn(name = "id_endereco")
+////private Endereco endereco;
+//
+//@ManyToOne(fetch = FetchType.LAZY)
+//@MapsId("idEndereco")
+//private Endereco endereco;
+//
+//@ManyToOne(fetch = FetchType.LAZY)
+//@MapsId("idOrganizacao")
+//private Organizacao organizacao;
+//
+//    
+//
+//
+
+////private int idOrganizacao;
+////private int id_endereco;
+//
+//public Local(int idLocal, String nomeResponsavel, String telefoneLocal, int idOrganizacao, int id_endereco) {
+//    //this.idLocal = idLocal;
+//    this.nomeResponsavel = nomeResponsavel;
+//    this.telefoneLocal = telefoneLocal;
+//    //this.idOrganizacao = idOrganizacao;
+//   // this.id_endereco = id_endereco;
+//}
+//
+//public Local(){
+//
+//};
+//
+//public Local(String nomeResponsavel, String telefoneLocal, int idOrganizacao, int id_endereco) {
+//    this.nomeResponsavel = nomeResponsavel;
+//    this.telefoneLocal = telefoneLocal;
+//    //this.idOrganizacao = idOrganizacao;
+//    //this.id_endereco = id_endereco;
+//}
+//
+////public int getIdLocal() {
+////    return idLocal;
+////}
+////
+////public void setIdLocal(int idLocal) {
+////    this.idLocal = idLocal;
+////}
 
 //    public int getIdOrganizacao() {
 //        return idOrganizacao;
@@ -130,10 +164,10 @@ public class Local {
 //		return organizacao.getIdOrganizacao();
 //	}
     
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(organizacao, endereco);
-    } 
+//
+//    @Override
+//    public int hashCode() {
+//        return Objects.hash(organizacao, endereco);
+//    } 
 }
 

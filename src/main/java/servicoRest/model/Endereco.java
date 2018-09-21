@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -24,13 +25,21 @@ public class Endereco {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long idEndereco;
+	@Column(name="end")
 	private String end;
+	@Column(name="num_casa")
 	private String numCasa;
+	@Column(name="complemento")
 	private String complemento;
+	@Column(name="bairro")
 	private String bairro;
+	@Column(name="cidade")
 	private String cidade;
+	@Column(name="uf")
 	private String uf;
+	@Column(name="cep")
 	private String cep;
+	
 	
 	
 	public Endereco() {
@@ -105,11 +114,23 @@ public class Endereco {
 //			)
 //	Set<Organizacao> ongs = new HashSet<>();
 
-    @OneToMany(
-        mappedBy = "endereco", 
-        cascade = CascadeType.ALL, 
-        orphanRemoval = true
-    )
-    private List<Local> locais = new ArrayList<>();
+//    @OneToMany(
+//        mappedBy = "endereco", 
+//        cascade = CascadeType.ALL, 
+//        orphanRemoval = true
+//    )
+//    private List<Local> locais = new ArrayList<>();
+	
+	 @OneToMany(mappedBy = "endereco")
+	 private Set<Local>locais;
+	    public Set<Local> getLocais() {
+	        return locais;
+	    }
+
+	    public void setLocal(Set<Local> locais) {
+	        this.locais = locais;
+	    }
+	
+	
 }
 

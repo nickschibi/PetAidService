@@ -8,52 +8,46 @@ import javax.persistence.Embeddable;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 
-@Embeddable
+
 public class OrganizacaoEnderecoId implements Serializable{
-
-	@Column(name="id_local")
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long idLocal;
+//	private Long idOrganizacao;
+//	private Long idEndereco;
 	
-	@Column(name="id_organizacao")
-	private Long idOrganizacao;
 	
-	@Column(name="id_endereco")
-	private Long idEndereco;
+	private Organizacao organizacao;
+	private Endereco endereco;
 
-	public Long getIdLocal() {
-		return idLocal;
-	}
 
-	public void setIdLocal(Long idLocal) {
-		this.idLocal = idLocal;
-	}
+	private static final long serialVersionUID = -2834827403836993112L;
 
-	public Long getIdOrganizacao() {
-		return idOrganizacao;
-	}
+	 @Override
+	    public int hashCode() {
+	        final int prime = 31;
+	        int result = 1;
+	        result = prime * result + ((organizacao == null) ? 0 : organizacao.hashCode());
+	        result = prime * result + ((endereco == null) ? 0 : endereco.hashCode());
+	        return result;
+	    }
 
-	public void setIdOrganizacao(Long idOrganizacao) {
-		this.idOrganizacao = idOrganizacao;
-	}
-
-	public Long getIdEndereco() {
-		return idEndereco;
-	}
-
-	public void setIdEndereco(Long idEndereco) {
-		this.idEndereco = idEndereco;
-	}
-
-	public OrganizacaoEnderecoId() {}
-	
-	public OrganizacaoEnderecoId(Long idOrganizacao, Long idEndereco) {
-		this.idOrganizacao = idOrganizacao;
-		this.idEndereco = idEndereco;
-	}
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(idOrganizacao, idEndereco);
-    }
+	    @Override
+	    public boolean equals(Object obj) {
+	        if (this == obj)
+	            return true;
+	        if (obj == null)
+	            return false;
+	        if (getClass() != obj.getClass())
+	            return false;
+	        OrganizacaoEnderecoId other = (OrganizacaoEnderecoId) obj;
+	        if (organizacao == null) {
+	            if (other.organizacao != null)
+	                return false;
+	        } else if (!organizacao.equals(other.organizacao))
+	            return false;
+	        if (endereco == null) {
+	            if (other.endereco != null)
+	                return false;
+	        } else if (!endereco.equals(other.endereco))
+	            return false;
+	        return true;
+	    }
 }
