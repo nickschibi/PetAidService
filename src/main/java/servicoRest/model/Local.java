@@ -10,6 +10,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @IdClass(OrganizacaoEnderecoId.class)
 @Table(name="local")
@@ -18,9 +20,11 @@ public class Local{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="id_local")
-	private int idLocal;
+	private long idLocal;
+	
 	@Column(name="nome_responsavel")
 	private String nomeResponsavel;
+	
 	@Column(name="telefone_local")
 	private String telefoneLocal;
 
@@ -32,6 +36,7 @@ public class Local{
 
 	@ManyToOne
 	@JoinColumn(name="id_organizacao",insertable = false,updatable = false)
+	@JsonIgnore
 	private Organizacao organizacao;
 
 	@ManyToOne
@@ -68,10 +73,10 @@ public class Local{
         this.telefoneLocal = telefoneLocal;
     }
 
-	public int getIdLocal() {
+	public long getIdLocal() {
 		return idLocal;
 	}
-	public void setIdLocal(int idLocal) {
+	public void setIdLocal(long idLocal) {
 		this.idLocal = idLocal;
 	}
 	public long getIdOrganizacao() {

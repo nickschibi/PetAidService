@@ -8,7 +8,23 @@ public class OrganizacaoEnderecoId implements Serializable{
 	private Long idOrganizacao;
 	private Long idEndereco;
 
+	public Long getIdOrganizacao() {
+		return idOrganizacao;
+	}
 
+	public void setIdOrganizacao(Long idOrganizacao) {
+		this.idOrganizacao = idOrganizacao;
+	}
+
+	public Long getIdEndereco() {
+		return idEndereco;
+	}
+
+	public void setIdEndereco(Long idEndereco) {
+		this.idEndereco = idEndereco;
+	}
+
+	
 	private static final long serialVersionUID = -2834827403836993112L;
 
 	 @Override
