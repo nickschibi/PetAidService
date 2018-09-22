@@ -1,18 +1,9 @@
 package servicoRest.model;
 
 import java.io.Serializable;
-import java.util.Objects;
-
-import javax.persistence.Column;
-import javax.persistence.Embeddable;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 
 
 public class OrganizacaoEnderecoId implements Serializable{
-//	private Long idOrganizacao;
-//	private Long idEndereco;
-	
 	
 	private Organizacao organizacao;
 	private Endereco endereco;

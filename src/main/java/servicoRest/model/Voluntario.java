@@ -54,7 +54,4 @@ public class Voluntario {
 		this.telefone_voluntario = telefone_voluntario;
 	}
 
-	
-	
-
 }

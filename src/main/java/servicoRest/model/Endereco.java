@@ -1,8 +1,5 @@
 package servicoRest.model;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -11,11 +8,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name="endereco")
@@ -39,8 +35,10 @@ public class Endereco {
 	private String uf;
 	@Column(name="cep")
 	private String cep;
-	
-	
+
+	@OneToMany(mappedBy = "endereco", cascade = CascadeType.ALL, orphanRemoval = true)
+	@JsonIgnore
+	private Set<Local>locais;
 	
 	public Endereco() {
 		
@@ -106,30 +104,13 @@ public class Endereco {
 		this.cep = cep;
 	}
 	
-//	@ManyToMany(cascade = { CascadeType.ALL})
-//	@JoinTable(
-//			name= "Local",
-//			joinColumns = {  @JoinColumn ( name="id_endereco") },
-//			inverseJoinColumns = {@JoinColumn(name="id_organizacao")}
-//			)
-//	Set<Organizacao> ongs = new HashSet<>();
-
-//    @OneToMany(
-//        mappedBy = "endereco", 
-//        cascade = CascadeType.ALL, 
-//        orphanRemoval = true
-//    )
-//    private List<Local> locais = new ArrayList<>();
+	public Set<Local> getLocais() {
+	    return locais;
+	}
 	
-	 @OneToMany(mappedBy = "endereco")
-	 private Set<Local>locais;
-	    public Set<Local> getLocais() {
-	        return locais;
-	    }
-
-	    public void setLocal(Set<Local> locais) {
-	        this.locais = locais;
-	    }
+	public void setLocal(Set<Local> locais) {
+	    this.locais = locais;
+	}
 	
 	
 }

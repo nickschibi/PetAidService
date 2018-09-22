@@ -14,19 +14,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 import servicoRest.excpetion.NotFoundException;
 import servicoRest.model.Voluntario;
-import servicoRest.repository.OrganizacaoRepository;
 import servicoRest.repository.VoluntarioRepository;
 
 @RestController
 public class VoluntarioController {
 	@Autowired
 	private VoluntarioRepository voluntarioRepository;
-
-	private static final String templateIdVoluntario = "Id [%d]";
-	private static final String templateNomeVoluntario = "Nome [%s]";
-	private static final String templateEmail = "Email [%s]";
-	private static final String templateTelefoneVoluntario = "Telefone[%s]";
-	
 
 	@RequestMapping(value = "/voluntario/{id}", method = RequestMethod.GET)
 	public Voluntario getVoluntario(@PathVariable long id) {
@@ -40,7 +33,6 @@ public class VoluntarioController {
 		} else {
 			return voluntarioRepository.findAllByEmail(email);
 		}
-
 	}
 
 	@RequestMapping(value = "/voluntario", method = RequestMethod.POST)
@@ -63,7 +55,7 @@ public class VoluntarioController {
 			vol = voluntarioRepository.findById(id).get();
 
 		} catch (NoSuchElementException e) {
-			return new ResponseEntity<String>("Voluntário não encontrado.", HttpStatus.NOT_FOUND);
+			return new ResponseEntity<String>("Voluntï¿½rio nï¿½o encontrado.", HttpStatus.NOT_FOUND);
 		}
 
 		vol.setNome_voluntario(voluntario.getNome_voluntario());
