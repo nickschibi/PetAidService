@@ -1,7 +1,5 @@
 package servicoRest.model;
 
-import java.io.Serializable;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -16,7 +14,7 @@ import javax.persistence.Table;
 @Entity
 @IdClass(OrganizacaoEnderecoId.class)
 @Table(name="local")
-public class Local implements Serializable {
+public class Local{
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,12 +26,12 @@ public class Local implements Serializable {
 	private String telefoneLocal;
 
 	@Id
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne
 	@JoinColumn(name="id_organizacao")
 	private Organizacao organizacao;
 	
 	@Id
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne
 	@JoinColumn(name="id_endereco")
 	private Endereco endereco;
 	
