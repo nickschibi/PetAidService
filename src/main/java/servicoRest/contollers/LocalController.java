@@ -34,7 +34,7 @@ public class LocalController {
     
     @RequestMapping(value="/local", method=RequestMethod.POST)
     public ResponseEntity<Local> createLocal(@RequestBody Local local) {
-    	Local l = localRepository.save(local);
+    	Local l = localRepository.saveAndFlush(local);
 		return new ResponseEntity<Local>(l, HttpStatus.OK);
 
     }

@@ -2,7 +2,6 @@ package servicoRest.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -25,14 +24,18 @@ public class Local{
 	@Column(name="telefone_local")
 	private String telefoneLocal;
 
-	@Id
+	@Column(name="id_organizacao")
+	private long idOrganizacao;
+
+	@Column(name="id_endereco")
+	private long idEndereco;
+
 	@ManyToOne
-	@JoinColumn(name="id_organizacao")
+	@JoinColumn(name="id_organizacao",insertable = false,updatable = false)
 	private Organizacao organizacao;
-	
-	@Id
+
 	@ManyToOne
-	@JoinColumn(name="id_endereco")
+	@JoinColumn(name="id_endereco",insertable = false,updatable = false)
 	private Endereco endereco;
 	
 	public Organizacao getOrganizacao() {
@@ -64,7 +67,25 @@ public class Local{
     public void setTelefoneLocal(String telefoneLocal) {
         this.telefoneLocal = telefoneLocal;
     }
-    
+
+	public int getIdLocal() {
+		return idLocal;
+	}
+	public void setIdLocal(int idLocal) {
+		this.idLocal = idLocal;
+	}
+	public long getIdOrganizacao() {
+		return idOrganizacao;
+	}
+	public void setIdOrganizacao(long idOrganizacao) {
+		this.idOrganizacao = idOrganizacao;
+	}
+	public long getIdEndereco() {
+		return idEndereco;
+	}
+	public void setIdEndereco(long idEndereco) {
+		this.idEndereco = idEndereco;
+	}
     
 }
 

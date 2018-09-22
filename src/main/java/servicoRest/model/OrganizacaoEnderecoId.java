@@ -5,8 +5,8 @@ import java.io.Serializable;
 
 public class OrganizacaoEnderecoId implements Serializable{
 	
-	private Organizacao organizacao;
-	private Endereco endereco;
+	private Long idOrganizacao;
+	private Long idEndereco;
 
 
 	private static final long serialVersionUID = -2834827403836993112L;
@@ -15,8 +15,8 @@ public class OrganizacaoEnderecoId implements Serializable{
 	    public int hashCode() {
 	        final int prime = 31;
 	        int result = 1;
-	        result = prime * result + ((organizacao == null) ? 0 : organizacao.hashCode());
-	        result = prime * result + ((endereco == null) ? 0 : endereco.hashCode());
+	        result = prime * result + ((idOrganizacao == null) ? 0 : idOrganizacao.hashCode());
+	        result = prime * result + ((idEndereco == null) ? 0 : idEndereco.hashCode());
 	        return result;
 	    }
 
@@ -29,15 +29,15 @@ public class OrganizacaoEnderecoId implements Serializable{
 	        if (getClass() != obj.getClass())
 	            return false;
 	        OrganizacaoEnderecoId other = (OrganizacaoEnderecoId) obj;
-	        if (organizacao == null) {
-	            if (other.organizacao != null)
+	        if (idOrganizacao == null) {
+	            if (other.idOrganizacao != null)
 	                return false;
-	        } else if (!organizacao.equals(other.organizacao))
+	        } else if (!idOrganizacao.equals(other.idOrganizacao))
 	            return false;
-	        if (endereco == null) {
-	            if (other.endereco != null)
+	        if (idEndereco == null) {
+	            if (other.idEndereco != null)
 	                return false;
-	        } else if (!endereco.equals(other.endereco))
+	        } else if (!idEndereco.equals(other.idEndereco))
 	            return false;
 	        return true;
 	    }

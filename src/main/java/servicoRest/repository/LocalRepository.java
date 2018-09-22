@@ -2,11 +2,11 @@ package servicoRest.repository;
 
 import java.util.Optional;
 
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 import servicoRest.model.Local;
 
-public interface LocalRepository extends CrudRepository<Local, Long> {
+public interface LocalRepository extends JpaRepository<Local, Long> {
 	
     Optional<Local> findById(Long id);
 
