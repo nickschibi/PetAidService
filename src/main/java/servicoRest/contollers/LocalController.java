@@ -1,4 +1,6 @@
 package servicoRest.contollers;
+import java.util.NoSuchElementException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,7 +22,7 @@ public class LocalController {
 
     @RequestMapping(value="/local/{id}", method=RequestMethod.GET)
     public Local getLocal(@PathVariable long id) {
-		return localRepository.findById(id).orElseThrow(NotFoundException::new);
+		return localRepository.findByIdLocal(id).orElseThrow(NotFoundException::new);
     }
 
     @RequestMapping(value="/local", method=RequestMethod.GET)
@@ -31,14 +33,38 @@ public class LocalController {
     		return localRepository.findByOrganizacao_IdOrganizacao(Long.parseLong(id_organizacao));
     	}
     }
-    
+
     @RequestMapping(value="/local", method=RequestMethod.POST)
     public ResponseEntity<Local> createLocal(@RequestBody Local local) {
-    	Local l = localRepository.saveAndFlush(local);
+    	Local l = localRepository.save(local);
 		return new ResponseEntity<Local>(l, HttpStatus.OK);
 
     }
 	
+
+    @RequestMapping(value="/local/{id}", method=RequestMethod.DELETE)
+    public ResponseEntity<String> deleteLocal(@PathVariable long id) {
+		localRepository.deleteById(id);
+		return new ResponseEntity<String>("OK", HttpStatus.OK);
+    }
+   
+    @RequestMapping(value = "/local/{id}", method = RequestMethod.PUT)
+	public ResponseEntity<?> updateLocal(@RequestBody Local local, @PathVariable long id) {
+
+		Local l;
+		try {
+			l = localRepository.findByIdLocal(id).get();
+
+		} catch (NoSuchElementException e) {
+			return new ResponseEntity<String>("Local nao encontrado.", HttpStatus.NOT_FOUND);
+		}
+
+		l.setNomeResponsavel(local.getNomeResponsavel());
+		l.setTelefoneLocal(local.getTelefoneLocal());
+
+		localRepository.save(l);
+		return new ResponseEntity<Local>(l, HttpStatus.OK);
+	}
 	
 
 }
