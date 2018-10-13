@@ -44,7 +44,7 @@ public class LocalController {
 
     @RequestMapping(value="/local/{id}", method=RequestMethod.DELETE)
     public ResponseEntity<String> deleteLocal(@PathVariable long id) {
-		localRepository.deleteById(id);
+		localRepository.deleteByIdLocal(id);
 		return new ResponseEntity<String>("OK", HttpStatus.OK);
     }
    

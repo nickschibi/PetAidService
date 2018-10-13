@@ -1,5 +1,8 @@
 package servicoRest.model;
 
+import java.util.Set;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -8,12 +11,13 @@ import javax.persistence.Id;
 import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-@IdClass(OrganizacaoEnderecoId.class)
+//@IdClass(OrganizacaoEnderecoId.class)
 @Table(name="local")
 public class Local{
 	
@@ -42,6 +46,21 @@ public class Local{
 	@ManyToOne
 	@JoinColumn(name="id_endereco",insertable = false,updatable = false)
 	private Endereco endereco;
+	
+	@OneToMany(mappedBy = "local", cascade = CascadeType.ALL, orphanRemoval = true)
+	@JsonIgnore
+	private Set<NecessidadesLocal>necessidadesLocal;
+	
+	
+	public Set<NecessidadesLocal> getNecessidadeLocal() {
+	    return necessidadesLocal;
+	}
+	
+	public void setNecessidadesLocal(Set<NecessidadesLocal> necessidadesLocal) {
+	    this.necessidadesLocal = necessidadesLocal;
+	}
+		
+	
 	
 	public Organizacao getOrganizacao() {
 		return organizacao;
