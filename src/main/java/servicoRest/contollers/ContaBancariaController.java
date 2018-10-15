@@ -67,6 +67,7 @@ public class ContaBancariaController {
 		c.setCodConta(contaBancaria.getCodConta());
 		c.setIdBanco(contaBancaria.getIdBanco());
 		c.setIdCategoriaConta(contaBancaria.getIdCategoriaConta());
+		c.setTipoDoc(contaBancaria.getTipoDoc());
 		c.setNumDoc(contaBancaria.getNumDoc());
 		c.setNomeProprietario(contaBancaria.getNomeProprietario());
 		

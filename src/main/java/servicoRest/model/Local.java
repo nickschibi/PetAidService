@@ -46,7 +46,7 @@ public class Local{
 	@ManyToOne
 	@JoinColumn(name="id_endereco",insertable = false,updatable = false)
 	private Endereco endereco;
-	
+
 	@OneToMany(mappedBy = "local", cascade = CascadeType.ALL, orphanRemoval = true)
 	@JsonIgnore
 	private Set<NecessidadesLocal>necessidadesLocal;
