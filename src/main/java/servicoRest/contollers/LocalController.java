@@ -5,6 +5,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,9 +15,11 @@ import org.springframework.web.bind.annotation.RestController;
 import servicoRest.excpetion.NotFoundException;
 import servicoRest.model.ContaBancaria;
 import servicoRest.model.Local;
+import servicoRest.model.Voluntariado;
 import servicoRest.repository.ContaBancariaRepository;
 import servicoRest.repository.EnderecoRepository;
 import servicoRest.repository.LocalRepository;
+import servicoRest.repository.VoluntariadoRepository;
 
 @RestController
 public class LocalController {
@@ -29,6 +32,9 @@ public class LocalController {
 
 	@Autowired
 	private ContaBancariaRepository contaBancariaRepository;
+	
+	@Autowired
+	private VoluntariadoRepository voluntariadoRepository;
 
     @RequestMapping(value="/local/{id}", method=RequestMethod.GET)
     public Local getLocal(@PathVariable long id) {
@@ -52,6 +58,7 @@ public class LocalController {
     }
 	
 
+    @Transactional
     @RequestMapping(value="/local/{id}", method=RequestMethod.DELETE)
     public ResponseEntity<String> deleteLocal(@PathVariable long id, @RequestParam(value="force", required=false) String force) {
     	if(force != null && force.equals("true")) {
@@ -59,6 +66,11 @@ public class LocalController {
     		for(ContaBancaria conta : contas) {
     			contaBancariaRepository.deleteById(conta.getIdConta());
     		}
+    		Iterable<Voluntariado> voluntariados = voluntariadoRepository.findByIdLocal(id);
+    		for(Voluntariado voluntariado: voluntariados) {
+    			voluntariadoRepository.deleteByIdVoluntariado(voluntariado.getIdVoluntariado());
+    		}
+    		
     		Optional<Local> localOp = localRepository.findById(id);
     		Local local = localOp.orElse(null);
     		if(local != null) {

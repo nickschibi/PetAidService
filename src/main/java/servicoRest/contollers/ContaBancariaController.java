@@ -3,6 +3,7 @@ import java.util.NoSuchElementException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -46,6 +47,7 @@ public class ContaBancariaController {
 		return new ResponseEntity<ContaBancaria>(conta, HttpStatus.OK);
     }
 
+    @Transactional
     @RequestMapping(value="/contaBancaria/{id}", method=RequestMethod.DELETE)
     public ResponseEntity<String> deleteContaBancaria(@PathVariable long id) {
     	contaBancariaRepository.deleteById(id);

@@ -1,5 +1,7 @@
 package servicoRest.contollers;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.NoSuchElementException;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,20 +38,42 @@ public class NecessidadesLocalController {
 	    	}
 	    }
 
-	    @RequestMapping(value="/necessidadesLocal", method=RequestMethod.POST)
-	    public ResponseEntity<NecessidadesLocal> createNecessidadesLocal(@RequestBody NecessidadesLocal necessidadesLocal) {
-	    	NecessidadesLocal nl = necessidadesLocalRepository.save(necessidadesLocal);
-			return new ResponseEntity<NecessidadesLocal>(nl, HttpStatus.OK);
+//	    @RequestMapping(value="/necessidadesLocal", method=RequestMethod.POST)
+//	    public ResponseEntity<NecessidadesLocal> createNecessidadesLocal(@RequestBody NecessidadesLocal necessidadesLocal) {
+//	    	NecessidadesLocal nl = necessidadesLocalRepository.save(necessidadesLocal);
+//			return new ResponseEntity<NecessidadesLocal>(nl, HttpStatus.OK);
+//	    }
+	    
 
+	    @RequestMapping(value="/necessidadesLocal", method=RequestMethod.POST)
+	    public ResponseEntity<?> createNecessidadesLocal(@RequestBody List<NecessidadesLocal> listNecessidadesLocal) {
+	    	//NecessidadesLocal nl = necessidadesLocalRepository.save(necessidadesLocal);
+	    	ArrayList<NecessidadesLocal> resposta = new ArrayList<>();
+	    	for(NecessidadesLocal nl:listNecessidadesLocal) {
+	    		resposta.add(necessidadesLocalRepository.save(nl));
+	    	}
+			//return new ResponseEntity<NecessidadesLocal>(nl, HttpStatus.OK);
+	    	return new ResponseEntity<List<NecessidadesLocal>>(resposta, HttpStatus.OK);
 	    }
 		
 
+//	    @Transactional
+//	    @RequestMapping(value="/necessidadesLocal", method=RequestMethod.DELETE)
+//	    public ResponseEntity<String> deleteNecessidadesLocal(@RequestParam(value="id_local", required=true) String id_local, @RequestParam(value="id_necessidade", required=true) String id_necessidade) {
+//			necessidadesLocalRepository.deleteByIdNecessidadeAndIdLocal(Long.parseLong(id_necessidade), Long.parseLong(id_local));
+//			return new ResponseEntity<String>("OK", HttpStatus.OK);
+//	    }
+	    
+
 	    @Transactional
 	    @RequestMapping(value="/necessidadesLocal", method=RequestMethod.DELETE)
-	    public ResponseEntity<String> deleteNecessidadesLocal(@RequestParam(value="id_local", required=true) String id_local, @RequestParam(value="id_necessidade", required=true) String id_necessidade) {
-			necessidadesLocalRepository.deleteByIdNecessidadeAndIdLocal(Long.parseLong(id_necessidade), Long.parseLong(id_local));
+	    public ResponseEntity<?> deleteNecessidadesLocal(@RequestBody List<NecessidadesLocal> listNecessidadesLocal) {
+	    	for(NecessidadesLocal nl:listNecessidadesLocal) {
+	    		necessidadesLocalRepository.deleteByIdNecessidadeAndIdLocal(nl.getIdNecessidade(), nl.getIdLocal());
+	    	}
 			return new ResponseEntity<String>("OK", HttpStatus.OK);
 	    }
+	    
 	   
 	    @RequestMapping(value = "/necessidadesLocal/{id}", method = RequestMethod.PUT)
 		public ResponseEntity<?> updateNecessidadesLocal(@RequestBody NecessidadesLocal necessidadesLocal, @PathVariable long id) {

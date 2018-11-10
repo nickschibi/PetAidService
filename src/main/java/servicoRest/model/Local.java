@@ -38,6 +38,12 @@ public class Local{
 	@Column(name="id_endereco")
 	private long idEndereco;
 
+	@Column(name="media_nota")
+	private Float mediaNota;
+	
+	@Column(name="count_necessidades")
+	private int countNecessidades;
+	
 	@ManyToOne
 	@JoinColumn(name="id_organizacao",insertable = false,updatable = false)
 	@JsonIgnore
@@ -109,6 +115,22 @@ public class Local{
 	}
 	public void setIdEndereco(long idEndereco) {
 		this.idEndereco = idEndereco;
+	}
+
+	public Float getMediaNota() {
+		return mediaNota;
+	}
+
+	public void setMediaNota(Float mediaNota) {
+		this.mediaNota = mediaNota;
+	}
+
+	public int getCountNecessidades() {
+		return countNecessidades;
+	}
+
+	public void setCountNecessidades(int countNecessidades) {
+		this.countNecessidades = countNecessidades;
 	}
     
 }

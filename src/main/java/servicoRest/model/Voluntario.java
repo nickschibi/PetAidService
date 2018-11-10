@@ -1,8 +1,14 @@
 package servicoRest.model;
 
+import java.util.Set;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "voluntario")
@@ -14,6 +20,10 @@ public class Voluntario {
 	private String email;
 	private String telefone_voluntario;
 	
+//
+//	@OneToMany(mappedBy = "voluntario", cascade = CascadeType.ALL, orphanRemoval = true)
+//	@JsonIgnore
+//	private Set<Voluntariado>voluntariado;
 	
 	public Voluntario() {
 		

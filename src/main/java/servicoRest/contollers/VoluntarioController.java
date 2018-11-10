@@ -13,13 +13,18 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import servicoRest.excpetion.NotFoundException;
+import servicoRest.model.Voluntariado;
 import servicoRest.model.Voluntario;
+import servicoRest.repository.VoluntariadoRepository;
 import servicoRest.repository.VoluntarioRepository;
 
 @RestController
 public class VoluntarioController {
 	@Autowired
 	private VoluntarioRepository voluntarioRepository;
+	
+	@Autowired
+	private VoluntariadoRepository voluntariadoRepository;
 
 	@RequestMapping(value = "/voluntario/{id}", method = RequestMethod.GET)
 	public Voluntario getVoluntario(@PathVariable long id) {
@@ -43,8 +48,15 @@ public class VoluntarioController {
 	}
 
 	@RequestMapping(value = "/voluntario/{id}", method = RequestMethod.DELETE)
-	public void deleteVoluntario(@PathVariable long id) {
-		voluntarioRepository.deleteById(id);
+	public ResponseEntity<String> deleteVoluntario(@PathVariable long id, @RequestParam(value="force", required=false) String force) {
+		if(force != null && force.equals("true")) {
+			Iterable<Voluntariado> voluntariados = voluntariadoRepository.findByIdVoluntario(id);
+    		for(Voluntariado voluntariado: voluntariados) {
+    			voluntariadoRepository.deleteById(voluntariado.getIdVoluntariado());
+    		}
+		}
+		voluntarioRepository.deleteById(id);		
+		return new ResponseEntity<String>("OK", HttpStatus.OK);
 	}
 
 	@RequestMapping(value = "/voluntario/{id}", method = RequestMethod.PUT)
