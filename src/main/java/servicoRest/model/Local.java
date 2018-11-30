@@ -12,6 +12,7 @@ import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -56,7 +57,10 @@ public class Local{
 	@OneToMany(mappedBy = "local", cascade = CascadeType.ALL, orphanRemoval = true)
 	@JsonIgnore
 	private Set<NecessidadesLocal>necessidadesLocal;
-	
+
+    @OneToOne(mappedBy = "local")
+    @JsonIgnore
+    ContaBancaria contaBancaria;
 	
 	public Set<NecessidadesLocal> getNecessidadeLocal() {
 	    return necessidadesLocal;
@@ -68,6 +72,14 @@ public class Local{
 		
 	
 	
+	public ContaBancaria getContaBancaria() {
+		return contaBancaria;
+	}
+
+	public void setContaBancaria(ContaBancaria contaBancaria) {
+		this.contaBancaria = contaBancaria;
+	}
+
 	public Organizacao getOrganizacao() {
 		return organizacao;
 	}

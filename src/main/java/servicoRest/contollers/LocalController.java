@@ -13,9 +13,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import servicoRest.excpetion.NotFoundException;
+import servicoRest.model.Avaliacao;
 import servicoRest.model.ContaBancaria;
 import servicoRest.model.Local;
 import servicoRest.model.Voluntariado;
+import servicoRest.repository.AvaliacaoRepository;
 import servicoRest.repository.ContaBancariaRepository;
 import servicoRest.repository.EnderecoRepository;
 import servicoRest.repository.LocalRepository;
@@ -35,6 +37,9 @@ public class LocalController {
 	
 	@Autowired
 	private VoluntariadoRepository voluntariadoRepository;
+	
+	@Autowired
+	private AvaliacaoRepository avaliacaoRepository;
 
     @RequestMapping(value="/local/{id}", method=RequestMethod.GET)
     public Local getLocal(@PathVariable long id) {
@@ -66,10 +71,15 @@ public class LocalController {
     		for(ContaBancaria conta : contas) {
     			contaBancariaRepository.deleteById(conta.getIdConta());
     		}
+    		Iterable<Avaliacao> avaliacoes = avaliacaoRepository.findByVoluntariado_idLocal((int)id);
+    		for(Avaliacao avaliacao : avaliacoes) {
+    			avaliacaoRepository.deleteById(avaliacao.getIdAvaliacao());
+    		}
     		Iterable<Voluntariado> voluntariados = voluntariadoRepository.findByIdLocal(id);
     		for(Voluntariado voluntariado: voluntariados) {
     			voluntariadoRepository.deleteByIdVoluntariado(voluntariado.getIdVoluntariado());
     		}
+    		
     		
     		Optional<Local> localOp = localRepository.findById(id);
     		Local local = localOp.orElse(null);

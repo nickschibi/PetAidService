@@ -28,13 +28,22 @@ public class NecessidadesLocalController {
 	
 
 	    @RequestMapping(value="/necessidadesLocal", method=RequestMethod.GET)
-	    public Iterable<NecessidadesLocal> getNecessidadesLocal(@RequestParam(value="id_local", required=false) String id_local, @RequestParam(value="id_necessidade", required=false) String id_necessidade) {
-	    	if(id_local == null) {
-	    		return necessidadesLocalRepository.findAll();
-	    	} else if (id_necessidade == null){
+	    public Iterable<NecessidadesLocal> getNecessidadesLocal(@RequestParam(value="id_local", required=false) String id_local,
+	    														@RequestParam(value="id_necessidade", required=false) String id_necessidade, 
+	    														@RequestParam(value="id_endereco", required=false) String id_endereco) {
+	    	if(id_local != null && id_necessidade == null && id_endereco == null) {
 	    		return necessidadesLocalRepository.findByLocal_IdLocal(Long.parseLong(id_local));
-	    	} else {
+	    		//return necessidadesLocalRepository.findAll();
+	    	} else if (id_local != null && id_necessidade != null && id_endereco == null){
 	    		return necessidadesLocalRepository.findByIdNecessidadeAndIdLocal(Long.parseLong(id_necessidade), Long.parseLong(id_local));
+	    		//return necessidadesLocalRepository.findByLocal_IdLocal(Long.parseLong(id_local));	    		
+	    	} 
+	    	else if(id_local == null && id_necessidade == null && id_endereco != null) {
+	    		return necessidadesLocalRepository.findByLocal_IdEndereco(Long.parseLong(id_endereco));
+	    	}
+	    	else {
+	    		return necessidadesLocalRepository.findAll();
+	    		//return necessidadesLocalRepository.findByIdNecessidadeAndIdLocal(Long.parseLong(id_necessidade), Long.parseLong(id_local));
 	    	}
 	    }
 
@@ -75,23 +84,38 @@ public class NecessidadesLocalController {
 	    }
 	    
 	   
-	    @RequestMapping(value = "/necessidadesLocal/{id}", method = RequestMethod.PUT)
-		public ResponseEntity<?> updateNecessidadesLocal(@RequestBody NecessidadesLocal necessidadesLocal, @PathVariable long id) {
+//	    @RequestMapping(value = "/necessidadesLocal/{id}", method = RequestMethod.PUT)
+//		public ResponseEntity<?> updateNecessidadesLocal(@RequestBody NecessidadesLocal necessidadesLocal, @PathVariable long id) {
+//
+//			NecessidadesLocal nl;
+//			try {
+//				nl = necessidadesLocalRepository.findByIdLocal(id).get();
+//
+//			} catch (NoSuchElementException e) {
+//				return new ResponseEntity<String>("Necessidades nao encontradas.", HttpStatus.NOT_FOUND);
+//			}
+//
+//			nl.setObservacao(necessidadesLocal.getObservacao());
+//			
+//
+//			necessidadesLocalRepository.save(nl);
+//			return new ResponseEntity<NecessidadesLocal>(nl, HttpStatus.OK);
+//		}
 
+	    @RequestMapping(value="/necessidadesLocal", method=RequestMethod.PUT)
+	    public ResponseEntity<?> updateNecessidadesLocal(@RequestBody NecessidadesLocal necessidadesLocal) {
 			NecessidadesLocal nl;
 			try {
-				nl = necessidadesLocalRepository.findByIdLocal(id).get();
-
+				Iterable<NecessidadesLocal> nls = necessidadesLocalRepository.findByIdNecessidadeAndIdLocal(necessidadesLocal.getIdNecessidade(), necessidadesLocal.getIdLocal()); 			
+				nl = nls.iterator().next();
 			} catch (NoSuchElementException e) {
 				return new ResponseEntity<String>("Necessidades nao encontradas.", HttpStatus.NOT_FOUND);
 			}
 
 			nl.setObservacao(necessidadesLocal.getObservacao());
 			
-
 			necessidadesLocalRepository.save(nl);
-			return new ResponseEntity<NecessidadesLocal>(nl, HttpStatus.OK);
-		}
-	
+	    	return new ResponseEntity<NecessidadesLocal>(nl, HttpStatus.OK);
+	    }
 
 }

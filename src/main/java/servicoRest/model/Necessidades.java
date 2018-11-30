@@ -15,6 +15,7 @@ public class Necessidades {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long idNecessidade;
 	private String descricaoNecessidade;
+	private boolean flagPrecisaObs;
 	
 //	@OneToMany(mappedBy = "necessidades", cascade = CascadeType.ALL, orphanRemoval = true)
 //	@JsonIgnore
@@ -42,4 +43,11 @@ public class Necessidades {
 	public void setDescricaoNecessidade(String descricaoNecessidade) {
 		this.descricaoNecessidade = descricaoNecessidade;
 	}
+	public boolean isFlagPrecisaObs() {
+		return flagPrecisaObs;
+	}
+	public void setFlagPrecisaObs(boolean flagPrecisaObs) {
+		this.flagPrecisaObs = flagPrecisaObs;
+	}
+	
 }

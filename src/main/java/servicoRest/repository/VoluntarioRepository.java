@@ -12,4 +12,6 @@ public interface VoluntarioRepository extends CrudRepository<Voluntario, Long>{
 
 	Iterable<Voluntario>findAllByEmail(String email);
 
+	//Iterable<Voluntario> findAllByVoluntariado_IdLocal(long parseLong);
+
 }

@@ -31,7 +31,7 @@ public class NecessidadesLocal {
 
 	@ManyToOne
 	@JoinColumn(name="id_necessidade",insertable = false,updatable = false)
-	private Necessidades necessidades;
+	private Necessidades necessidade;
 	
 	
 	
@@ -53,5 +53,12 @@ public class NecessidadesLocal {
 	public void setIdNecessidade(long idNecessidade) {
 		this.idNecessidade = idNecessidade;
 	}
+	public Necessidades getNecessidade() {
+		return necessidade;
+	}
+	public void setNecessidade(Necessidades necessidade) {
+		this.necessidade = necessidade;
+	}
 	
+
 }

@@ -110,5 +110,24 @@ public class ContaBancaria {
 	public void setIdCategoriaConta(int idCategoriaConta) {
 		this.idCategoriaConta = idCategoriaConta;
 	}
+	public Local getLocal() {
+		return local;
+	}
+	public void setLocal(Local local) {
+		this.local = local;
+	}
+	public Banco getBanco() {
+		return banco;
+	}
+	public void setBanco(Banco banco) {
+		this.banco = banco;
+	}
+	public CategoriaConta getCategoriaConta() {
+		return categoriaConta;
+	}
+	public void setCategoriaConta(CategoriaConta categoriaConta) {
+		this.categoriaConta = categoriaConta;
+	}
+	
 	
 }

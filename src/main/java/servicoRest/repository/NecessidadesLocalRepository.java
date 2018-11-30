@@ -18,6 +18,8 @@ public interface NecessidadesLocalRepository  extends JpaRepository<Necessidades
 	  Iterable<NecessidadesLocal> findByLocal_IdLocal(long id_local);
 
 	  void deleteByIdNecessidadeAndIdLocal(long id_necessidade, long id_local);
+
+	Iterable<NecessidadesLocal> findByLocal_IdEndereco(long parseLong);
 	    
 	  //Iterable<Local> findByOrganizacao_IdOrganizacao(Long id_organizacao);
 

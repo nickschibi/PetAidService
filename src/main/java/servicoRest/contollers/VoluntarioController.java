@@ -13,8 +13,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import servicoRest.excpetion.NotFoundException;
+import servicoRest.model.Avaliacao;
 import servicoRest.model.Voluntariado;
 import servicoRest.model.Voluntario;
+import servicoRest.repository.AvaliacaoRepository;
 import servicoRest.repository.VoluntariadoRepository;
 import servicoRest.repository.VoluntarioRepository;
 
@@ -25,6 +27,9 @@ public class VoluntarioController {
 	
 	@Autowired
 	private VoluntariadoRepository voluntariadoRepository;
+	
+	@Autowired
+	private AvaliacaoRepository avaliacaoRepository;
 
 	@RequestMapping(value = "/voluntario/{id}", method = RequestMethod.GET)
 	public Voluntario getVoluntario(@PathVariable long id) {
@@ -32,11 +37,19 @@ public class VoluntarioController {
 	}
 
 	@RequestMapping(value = "/voluntario", method = RequestMethod.GET)
-	public Iterable<Voluntario> getVoluntario(@RequestParam(value = "email", defaultValue = "") final String email) {
-		if (email.equals("")) {
-			return voluntarioRepository.findAll();
-		} else {
+	public Iterable<Voluntario> getVoluntario(@RequestParam(value = "email", required = false) final String email, 
+											@RequestParam(value = "id_local", required = false) final String id_local) {
+		
+		if(id_local!=null && email == null ) {
+			
+			//return voluntarioRepository.findAllByVoluntariado_IdLocal(Long.parseLong(id_local));
+			return null;
+		}
+		else if (id_local==null && email != null) {
 			return voluntarioRepository.findAllByEmail(email);
+			
+		} else {
+			return voluntarioRepository.findAll();
 		}
 	}
 
@@ -50,6 +63,11 @@ public class VoluntarioController {
 	@RequestMapping(value = "/voluntario/{id}", method = RequestMethod.DELETE)
 	public ResponseEntity<String> deleteVoluntario(@PathVariable long id, @RequestParam(value="force", required=false) String force) {
 		if(force != null && force.equals("true")) {
+			Iterable<Avaliacao> avaliacoes = avaliacaoRepository.findByIdVoluntariado(id); 
+    		for(Avaliacao avaliacao: avaliacoes) {
+    			avaliacaoRepository.deleteById(avaliacao.getIdAvaliacao());
+    		}
+    		
 			Iterable<Voluntariado> voluntariados = voluntariadoRepository.findByIdVoluntario(id);
     		for(Voluntariado voluntariado: voluntariados) {
     			voluntariadoRepository.deleteById(voluntariado.getIdVoluntariado());
